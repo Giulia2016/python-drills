@@ -1,5 +1,7 @@
 
 class Solution(object):
+
+    
     def romanToInt(self, s):
         """
         :type s: str
@@ -23,26 +25,28 @@ class Solution(object):
 
         while idx < len(numbers_list)-1:
 
-            if numbers_list[idx] == 1:
-                if (numbers_list[idx+1] == 5)  | (numbers_list[idx + 1] == 10):
-                    n = numbers_list[idx+1] - numbers_list[idx]
-                    idx +=2
-                    continue
-            if (numbers_list[idx] == 10) and (numbers_list[idx+1] == 50) | (numbers_list[idx + 1] == 100):
-                    n = numbers_list[idx+1] - numbers_list[idx]
-                    idx+=2   
-                    continue        
-            if numbers_list[idx] == 100:
-                if numbers_list[idx+1] == 500 | numbers_list[idx + 1] == 1000:
-                    n = numbers_list[idx+1] - numbers_list[idx]          
-                    idx+=2
-                    continue
+            flag = 0
+
+            case_1 = (numbers_list[idx] ==1) and ((numbers_list[idx+1] == 5) | (numbers_list[idx+1] == 10))
+            case_2 = (numbers_list[idx] == 10) and ((numbers_list[idx+1] == 50) | (numbers_list[idx+1] == 100))
+            case_3 = (numbers_list[idx] == 100) and ((numbers_list[idx+1] == 500) | (numbers_list[idx+1] == 1000))
+
+            if case_1 | case_2 | case_3:
+
+                flag = 1
+                n = n + numbers_list[idx+1] - numbers_list[idx]
+                idx +=2
+                continue
+
             else:
                 n = n + numbers_list[idx]
+
                 idx+=1
 
-
+        if not flag:
+            n = n + numbers_list[-1]
+        
         return n
 
 solution = Solution()           
-print(solution.romanToInt('IIX'))
+print(solution.romanToInt('LVIII'))
